@@ -1,5 +1,4 @@
-"# cc-statistics" 
-Lenty Sprangers
-
-#Quatro Opdracht
-###Tieu Verhoeven
+# cc-statistics | Quatro Opdracht
+* Lenty Sprangers
+* Tieu Verhoeven
+* Sven Colijn

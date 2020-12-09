@@ -6,23 +6,30 @@ import java.util.regex.Pattern;
 
 public class Validation {
 
-    // Regex to verify valid e-mails
+    // Regex to validate valid e-mails
     private static final String regexEmail = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+↵\n"
             + ")*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-    // Regex to verify valid URLs
+    // Regex to validate valid URLs
     private static final String regexURL = "https?://" + "[a-zA-Z0-9@:%._\\+~#?&//=]" + "{1,256}\\.[a-z]"
             + "{1,256}\\b([-a-zA-Z0-9@:%" + "._\\+~#?&//=]*)" + "[a-zA-Z0-9@:%._\\+~#?&//=]";
+    // Regex to validate postal codes
+    private static final String regexPostalcode = "[1-9]" + "[0-9]" + "[0-9]" + "[0-9]" + " " + "[A-Z]" + "[A-Z]";
 
     public static void main(String[] args) {
-        System.out.println(validateURL("http://g."));
-        System.out.println(validateURL("http://g.g"));
-        System.out.println(validateURL("http://g.g.g"));
+        System.out.println(validatePostalcode("3333ZZ"));
     }
 
     // validate if the given e-mail is a valid e-mail
     public static boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile(regexEmail);
         Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    // validate if the given postalcode is a valid postalcode
+    public static boolean validatePostalcode(String postalcode) {
+        Pattern pattern = Pattern.compile(regexPostalcode);
+        Matcher matcher = pattern.matcher(postalcode);
         return matcher.matches();
     }
 

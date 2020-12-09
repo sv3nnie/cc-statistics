@@ -1,5 +1,5 @@
-import java.time.LocalDate;
-import java.util.Calendar;
+// import java.time.LocalDate;
+// import java.util.Calendar;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,7 +52,6 @@ public class Validation {
     }
 
     // Verify if the date given by the user is a valid date
-    // TODO
     // public static LocalDate verifyDate(int day, int month, int year) {
     // int dateYear = Calendar.getInstance().get(Calendar.YEAR);
     // LocalDate date = LocalDate.of(year, month, day);

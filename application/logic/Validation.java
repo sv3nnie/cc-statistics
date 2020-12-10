@@ -1,6 +1,7 @@
-// import java.time.LocalDate;
-// import java.util.Calendar;
+package application.logic;
 
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,10 +15,6 @@ public class Validation {
             + "{1,256}\\b([-a-zA-Z0-9@:%" + "._\\+~#?&//=]*)" + "[a-zA-Z0-9@:%._\\+~#?&//=]";
     // Regex to validate postal codes
     private static final String regexPostalcode = "[1-9]" + "[0-9]" + "[0-9]" + "[0-9]" + " " + "[A-Z]" + "[A-Z]";
-
-    public static void main(String[] args) {
-        System.out.println(validatePostalcode("3333ZZ"));
-    }
 
     // validate if the given e-mail is a valid e-mail
     public static boolean validateEmail(String email) {
@@ -59,9 +56,58 @@ public class Validation {
     }
 
     // Verify if the date given by the user is a valid date
-    // public static LocalDate verifyDate(int day, int month, int year) {
-    // int dateYear = Calendar.getInstance().get(Calendar.YEAR);
-    // LocalDate date = LocalDate.of(year, month, day);
-    // return date;
-    // }
+    public static boolean validateDate(int day, int month, int year) {
+        int dateYear = Calendar.getInstance().get(Calendar.YEAR);
+        if (day > 31 || day < 1) {
+            return false;
+        }
+        if (month < 1 || month > 12) {
+            return false;
+        }
+        if (year > dateYear || year < 1900) {
+            return false;
+        }
+        // check date for february
+        if (month == 2) {
+            if (leapYear(year)) {
+                if (day > 29) {
+                    return false;
+                }
+            } else {
+                if (day > 28) {
+                    return false;
+                }
+            }
+        }
+        // Month 1, 3, 5, 7, 8, 10, 12 = max 31 days
+        // Month 4, 6, 9, 11 = max 30 days
+        int[] days31 = { 1, 3, 5, 7, 8, 10, 12 };
+        int[] days30 = { 4, 6, 9, 11 };
+        if (Arrays.stream(days31).anyMatch(i -> i == month)) {
+            if (day > 31) {
+                return false;
+            }
+        }
+        if (Arrays.stream(days30).anyMatch(i -> i == month)) {
+            if (day > 30) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // validate if given year is a leap year to validate the date
+    public static boolean leapYear(int year) {
+        if (year % 100 == 0) {
+            if (year % 400 == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (year % 4 == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

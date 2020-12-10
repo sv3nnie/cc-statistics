@@ -1,18 +1,12 @@
 package application;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
-import application.UI.*;
+import application.controllers.UIController;
 
-public class App extends Application {
+public class App {
 
     public static void main(String[] args) {
-        launch(StudentUI.class);
-    }
-
-    @Override
-    public void start(Stage arg0) throws Exception {
-
+        Application.launch(UIController.class, args);
     }
 
 }

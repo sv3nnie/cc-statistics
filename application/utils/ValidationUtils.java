@@ -1,11 +1,11 @@
-package application.logic;
+package application.utils;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Validation {
+public class ValidationUtils {
 
     // Regex to validate valid e-mails
     private static final String regexEmail = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+↵\n"

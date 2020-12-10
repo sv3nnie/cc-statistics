@@ -1,9 +1,5 @@
 package application.UI;
 
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,15 +11,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import application.controllers.UIController;
 import application.entity.*;
+import application.logic.Gender;
 
-public class StudentUI extends Application {
-    public void start(Stage stage) {
+public class StudentUI implements IUI {
+
+    public Scene getUI(UIController uiController) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(400, 200);
         layout.setStyle("-fx-background-color: #EEF5FC;");
-        ObservableList<String> options = FXCollections.observableArrayList("Male", "Female", "Other");
 
         Text textEmail = new Text("Email");
         Text textName = new Text("Name");
@@ -45,7 +42,9 @@ public class StudentUI extends Application {
         TextField fieldYear = new TextField();
         fieldYear.setPrefWidth(60);
         fieldYear.setMaxWidth(60);
-        ComboBox genders = new ComboBox(options);
+        ComboBox genders = new ComboBox();
+        genders.getItems().addAll(Gender.values());
+
         TextField fieldCity = new TextField();
         TextField fieldAddress = new TextField();
         TextField fieldCountry = new TextField();
@@ -60,7 +59,6 @@ public class StudentUI extends Application {
         fieldCountry.setPromptText("Country");
         fieldPostalCode.setPromptText("Postalcode");
         Label output = new Label();
-
         Button submit = new Button("Submit");
 
         submit.setOnAction((event) -> {
@@ -73,7 +71,7 @@ public class StudentUI extends Application {
             } else {
                 output.setText(Student.addStudent(fieldEmail.getText(), fieldName.getText(),
                         Integer.valueOf(fieldDay.getText()), Integer.valueOf(fieldMonth.getText()),
-                        Integer.valueOf(fieldYear.getText()), String.valueOf(genders.getSelectionModel()),
+                        Integer.valueOf(fieldYear.getText()), String.valueOf(genders.getValue()),
                         fieldCountry.getText(), fieldCity.getText(), fieldAddress.getText(),
                         fieldPostalCode.getText()));
             }
@@ -122,14 +120,7 @@ public class StudentUI extends Application {
         layout.setBottom(texts);
 
         Scene scene = new Scene(layout);
-
-        stage.setTitle("Add student");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String args[]) {
-        launch(args);
+        return scene;
     }
 
 }

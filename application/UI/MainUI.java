@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 public class MainUI implements IUI {
 
     public Scene getUI(UIController controller) {
-        Button student = new Button("Student");
+        Button student = new Button("New Student");
 
         student.setOnAction((event) -> controller.switchScene("student"));
 

@@ -3,6 +3,7 @@ package application.entity;
 import java.time.LocalDate;
 
 import application.utils.ValidationUtils;
+import application.controllers.Database;
 
 public class Student {
 
@@ -18,9 +19,18 @@ public class Student {
             return "Invalid postalcode (0000 AA)";
         }
         // set input date to valid local date
-        // LocalDate date = LocalDate.of(dayDate, monthDate, dayDate);
-        // add to database here
-        return "Student has been added";
+        LocalDate date = LocalDate.of(yearDate, monthDate, dayDate);
+        // Build query for database
+        String query = "INSERT INTO Student(EmailAddress, Name, DateOfBirth, Gender, City, Address, Country, PostalCode) VALUES (\'"
+                + email + "\',\'" + name + "\',\'" + date + "\',\'" + gender + "\',\'" + city + "\',\'" + address
+                + "\',\'" + country + "\',\'" + postalCode + "\')";
+        // Check if student already exists in database (scuffed way)
+        if (Database.checkQuery("SELECT EmailAddress FROM Student WHERE EmailAddress = \'" + email + "\'")) {
+            return "Er bestaat al een student met dit e-mail adres.";
+        }
+        // Add to database
+        Database.insertQuery(query);
+        return "Student toegevoegd";
 
     }
 }

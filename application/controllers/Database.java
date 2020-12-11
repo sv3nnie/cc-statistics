@@ -1,16 +1,91 @@
+package application.controllers;
+
 import java.sql.*;
 
-/**
- * Dit is een voorbeeld Java toepassing waarin je verbinding maakt met een
- * SQLServer database.
- */
 public class Database {
 
     public static void main(String[] args) {
+        selectQuery("SELECT TOP 10 * FROM Student");
+    }
+
+    public static boolean checkQuery(String query) {
+        String connectionUrl = "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;";
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = query;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            if (stmt != null)
+                try {
+                    stmt.close();
+                } catch (Exception e) {
+                }
+            if (con != null)
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+        }
+        return false;
+    }
+
+    public static void insertQuery(String query) {
+
+        String connectionUrl = "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;";
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(connectionUrl);
+
+            String SQL = query;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            if (stmt != null)
+                try {
+                    stmt.close();
+                } catch (Exception e) {
+                }
+            if (con != null)
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+        }
+    }
+
+    public static void selectQuery(String query) {
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien
         // deze voor jou anders is.
-        String connectionUrl = "jdbc:sqlserver://localhost;databaseName=Bibliotheek;integratedSecurity=true;";
+        String connectionUrl = "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;";
 
         // Connection beheert informatie over de connectie met de database.
         Connection con = null;
@@ -29,7 +104,7 @@ public class Database {
             con = DriverManager.getConnection(connectionUrl);
 
             // Stel een SQL query samen.
-            String SQL = "SELECT TOP 10 * FROM Boek";
+            String SQL = query;
             stmt = con.createStatement();
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);

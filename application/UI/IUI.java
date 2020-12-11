@@ -5,5 +5,5 @@ import javafx.scene.Scene;
 
 public interface IUI {
 
-    public Scene getUI(UIController uiController);
+    public Scene getUI(UIController controller);
 }

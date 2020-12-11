@@ -5,14 +5,43 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class MainUI implements IUI {
 
     public Scene getUI(UIController controller) {
-        Button student = new Button("New Student");
+        BorderPane layout = new BorderPane();
+        VBox vBox = new VBox();
+        layout.setStyle("-fx-background-color: #EEF5FC;");
+        layout.setMinSize(400, 150);
+        Text title = new Text("CC-Statistics");
+        Text subtitle = new Text("Home");
+        vBox.getChildren().add(title);
+        vBox.getChildren().add(subtitle);
+        vBox.setAlignment(Pos.BASELINE_CENTER);
+        title.setFont(new Font(18));
+        subtitle.setFont(new Font(18));
+        Button student = new Button("Student");
+        Button course = new Button("Course");
+        Button enrollment = new Button("Enrollment");
+        Button certificate = new Button("Certificate");
+        student.setMinWidth(200);
+        student.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        course.setMinWidth(200);
+        course.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        enrollment.setMinWidth(200);
+        enrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        certificate.setMinWidth(200);
+        certificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
 
-        student.setOnAction((event) -> controller.switchScene("student"));
+        student.setOnAction((event) -> controller.switchScene("studentmenu"));
+        course.setOnAction((event) -> controller.switchScene("coursemenu"));
+        enrollment.setOnAction((event) -> controller.switchScene("enrollmentmenu"));
+        certificate.setOnAction((event) -> controller.switchScene("certificatemenu"));
 
         GridPane gridPane = new GridPane();
 
@@ -22,13 +51,15 @@ public class MainUI implements IUI {
         gridPane.setHgap(5);
 
         gridPane.setAlignment(Pos.CENTER);
+        gridPane.add(student, 0, 1);
+        gridPane.add(course, 1, 1);
+        gridPane.add(enrollment, 0, 2);
+        gridPane.add(certificate, 1, 2);
 
-        gridPane.add(student, 0, 0);
-        // Styling nodes
-        student.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        student.setMaxWidth(200);
+        layout.setBottom(gridPane);
+        layout.setTop(vBox);
 
-        Scene scene = new Scene(gridPane);
+        Scene scene = new Scene(layout);
         return scene;
     }
 

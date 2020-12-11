@@ -1,6 +1,7 @@
 package application.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import application.utils.ValidationUtils;
 import application.controllers.Database;
@@ -26,11 +27,14 @@ public class Student {
                 + "\',\'" + country + "\',\'" + postalCode + "\')";
         // Check if student already exists in database (scuffed way)
         if (Database.checkQuery("SELECT EmailAddress FROM Student WHERE EmailAddress = \'" + email + "\'")) {
-            return "Er bestaat al een student met dit e-mail adres.";
+            return "A student already exists with this e-mailaddress";
         }
         // Add to database
         Database.insertQuery(query);
-        return "Student toegevoegd";
+        return "Student has been added";
+    }
 
+    public static ArrayList getStudents() {
+        return Database.selectQueryArrayList("SELECT * FROM Student");
     }
 }

@@ -1,7 +1,6 @@
 package application.controllers;
 
-import application.UI.MainUI;
-import application.UI.StudentUI;
+import application.UI.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -24,10 +23,15 @@ public class UIController extends Application {
             case "main":
                 stage.setScene((new MainUI().getUI(this)));
                 break;
-            case "student":
-                stage.setScene((new StudentUI().getUI(this)));
+            case "studentmenu":
+                stage.setScene((new StudentMenuUI().getUI(this)));
                 break;
-
+            case "addstudent":
+                stage.setScene((new AddStudentUI().getUI(this)));
+                break;
+            case "viewstudent":
+                stage.setScene((new ViewStudentUI().getUI(this)));
+                break;
             default:
                 break;
         }

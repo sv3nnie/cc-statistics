@@ -11,13 +11,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
 import application.controllers.UIController;
 import application.entity.*;
 import application.logic.Gender;
 
-public class StudentUI implements IUI {
+public class AddStudentUI implements IUI {
 
-    public Scene getUI(UIController uiController) {
+    public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(400, 200);
         layout.setStyle("-fx-background-color: #EEF5FC;");
@@ -44,7 +45,6 @@ public class StudentUI implements IUI {
         fieldYear.setMaxWidth(60);
         ComboBox genders = new ComboBox();
         genders.getItems().addAll(Gender.values());
-
         TextField fieldCity = new TextField();
         TextField fieldAddress = new TextField();
         TextField fieldCountry = new TextField();
@@ -60,6 +60,7 @@ public class StudentUI implements IUI {
         fieldPostalCode.setPromptText("Postalcode");
         Label output = new Label();
         Button submit = new Button("Submit");
+        Button back = new Button("Back");
 
         submit.setOnAction((event) -> {
             if (fieldEmail.getText().isEmpty() || fieldName.getText().isEmpty() || fieldDay.getText().isEmpty()
@@ -76,6 +77,8 @@ public class StudentUI implements IUI {
                         fieldPostalCode.getText()));
             }
         });
+
+        back.setOnAction((event) -> controller.switchScene("studentmenu"));
 
         GridPane gridPane = new GridPane();
 
@@ -106,6 +109,7 @@ public class StudentUI implements IUI {
         gridPane.add(fieldPostalCode, 1, 7);
         VBox texts = new VBox();
         texts.getChildren().add(submit);
+        texts.getChildren().add(back);
         texts.getChildren().add(output);
         texts.setAlignment(Pos.BASELINE_CENTER);
         texts.setSpacing(10);
@@ -113,6 +117,8 @@ public class StudentUI implements IUI {
         // Styling nodes
         submit.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         submit.setMaxWidth(200);
+        back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        back.setMaxWidth(200);
         GridPane.setMargin(fieldMonth, new Insets(0, 0, 0, 45));
         GridPane.setMargin(fieldYear, new Insets(0, 0, 0, 90));
 

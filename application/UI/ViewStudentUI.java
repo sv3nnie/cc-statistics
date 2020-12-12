@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -22,7 +24,7 @@ public class ViewStudentUI implements IUI {
 
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
-        layout.setMinSize(400, 200);
+        layout.setMinSize(500, 150);
         layout.setStyle("-fx-background-color: #EEF5FC;");
 
         Text textStudents = new Text("Student");
@@ -32,8 +34,9 @@ public class ViewStudentUI implements IUI {
             studentsComboBox.getItems().add(student);
         }
         Label output = new Label();
-        Button delete = new Button("Delete");
+        Button delete = new Button("Delete Student");
         Button back = new Button("Back");
+        Button addCertificate = new Button("Add Certificate");
         Text textName = new Text("Name");
         Text textDoB = new Text("Date of Birth");
         Text textGender = new Text("Gender");
@@ -43,24 +46,14 @@ public class ViewStudentUI implements IUI {
         Text textPostalCode = new Text("Postalcode");
 
         TextField fieldName = new TextField();
-        TextField fieldDay = new TextField();
-        fieldDay.setPrefWidth(40);
-        fieldDay.setMaxWidth(40);
-        TextField fieldMonth = new TextField();
-        fieldMonth.setPrefWidth(40);
-        fieldMonth.setMaxWidth(40);
-        TextField fieldYear = new TextField();
-        fieldYear.setPrefWidth(60);
-        fieldYear.setMaxWidth(60);
+        TextField fieldDoB = new TextField();
         TextField fieldGender = new TextField();
         TextField fieldCity = new TextField();
         TextField fieldAddress = new TextField();
         TextField fieldCountry = new TextField();
         TextField fieldPostalCode = new TextField();
         fieldName.setEditable(false);
-        fieldDay.setEditable(false);
-        fieldMonth.setEditable(false);
-        fieldYear.setEditable(false);
+        fieldDoB.setEditable(false);
         fieldGender.setEditable(false);
         fieldCity.setEditable(false);
         fieldAddress.setEditable(false);
@@ -106,9 +99,7 @@ public class ViewStudentUI implements IUI {
         gridPane.add(textName, 0, 1);
         gridPane.add(fieldName, 1, 1);
         gridPane.add(textDoB, 0, 2);
-        gridPane.add(fieldDay, 1, 2);
-        gridPane.add(fieldMonth, 1, 2);
-        gridPane.add(fieldYear, 1, 2);
+        gridPane.add(fieldDoB, 1, 2);
         gridPane.add(textGender, 0, 3);
         gridPane.add(fieldGender, 1, 3);
         gridPane.add(textCountry, 0, 4);
@@ -119,23 +110,33 @@ public class ViewStudentUI implements IUI {
         gridPane.add(fieldAddress, 1, 6);
         gridPane.add(textPostalCode, 0, 7);
         gridPane.add(fieldPostalCode, 1, 7);
-        VBox texts = new VBox();
-        texts.getChildren().add(delete);
-        texts.getChildren().add(back);
-        texts.getChildren().add(output);
-        texts.setAlignment(Pos.BASELINE_CENTER);
-        texts.setSpacing(10);
-        texts.setPadding(new Insets(0, 10, 10, 10));
+        VBox vbox = new VBox();
+        Text certificate = new Text("Certificates");
+        TableView table = new TableView();
+        TableColumn courseName = new TableColumn("Course");
+        TableColumn grade = new TableColumn("Grade");
+        TableColumn employee = new TableColumn("Employee");
+        table.getColumns().addAll(courseName, grade, employee);
+        table.setMaxHeight(100);
+        vbox.getChildren().add(certificate);
+        vbox.getChildren().add(table);
+        addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        addCertificate.setMaxWidth(200);
+        vbox.getChildren().add(addCertificate);
+        vbox.getChildren().add(delete);
+        vbox.getChildren().add(back);
+        vbox.getChildren().add(output);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(0, 10, 10, 10));
         // Styling nodes
         delete.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         delete.setMaxWidth(200);
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
-        GridPane.setMargin(fieldMonth, new Insets(0, 0, 0, 45));
-        GridPane.setMargin(fieldYear, new Insets(0, 0, 0, 90));
 
         layout.setTop(gridPane);
-        layout.setBottom(texts);
+        layout.setBottom(vbox);
 
         Scene scene = new Scene(layout);
         return scene;

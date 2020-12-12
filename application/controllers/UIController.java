@@ -13,7 +13,8 @@ public class UIController extends Application {
         this.stage = stage;
 
         MainUI mainUI = new MainUI();
-
+        stage.setTitle(
+                "Sven Colijn (2168497) | Lenty Sprangers (2168025) | Tieu Verhoeven (studentnummer) | Pim van Gool (studentnummer)");
         stage.setScene(mainUI.getUI(this));
         stage.show();
     }

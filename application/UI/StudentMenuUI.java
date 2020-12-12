@@ -17,7 +17,7 @@ public class StudentMenuUI implements IUI {
         BorderPane layout = new BorderPane();
         VBox vBox = new VBox();
         layout.setStyle("-fx-background-color: #EEF5FC;");
-        layout.setMinSize(400, 150);
+        layout.setMinSize(500, 150);
         Text title = new Text("CC-Statistics");
         Text subtitle = new Text("Student Management");
         vBox.getChildren().add(title);

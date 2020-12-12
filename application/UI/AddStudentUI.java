@@ -20,7 +20,7 @@ public class AddStudentUI implements IUI {
 
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
-        layout.setMinSize(400, 200);
+        layout.setMinSize(500, 150);
         layout.setStyle("-fx-background-color: #EEF5FC;");
 
         Text textEmail = new Text("Email");

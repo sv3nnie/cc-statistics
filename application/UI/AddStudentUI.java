@@ -12,6 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.sql.SQLException;
+
 import application.controllers.UIController;
 import application.entity.*;
 import application.logic.Gender;
@@ -70,11 +72,16 @@ public class AddStudentUI implements IUI {
                     || fieldPostalCode.getText().isEmpty()) {
                 output.setText("Verify all fields");
             } else {
-                output.setText(Student.addStudent(fieldEmail.getText(), fieldName.getText(),
-                        Integer.valueOf(fieldDay.getText()), Integer.valueOf(fieldMonth.getText()),
-                        Integer.valueOf(fieldYear.getText()), String.valueOf(genders.getValue()),
-                        fieldCountry.getText(), fieldCity.getText(), fieldAddress.getText(),
-                        fieldPostalCode.getText()));
+                try {
+                    output.setText(Student.addStudent(fieldEmail.getText(), fieldName.getText(),
+                            Integer.valueOf(fieldDay.getText()), Integer.valueOf(fieldMonth.getText()),
+                            Integer.valueOf(fieldYear.getText()), String.valueOf(genders.getValue()),
+                            fieldCountry.getText(), fieldCity.getText(), fieldAddress.getText(),
+                            fieldPostalCode.getText()));
+                } catch (NumberFormatException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 

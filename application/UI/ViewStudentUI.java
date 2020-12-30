@@ -14,13 +14,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import application.controllers.Database;
+import application.controllers.StudentDatabase;
 import application.controllers.UIController;
-import application.entity.*;
 
 public class ViewStudentUI implements IUI {
+
+    private StudentDatabase studentDatabase = new StudentDatabase(
+            "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
@@ -29,7 +32,7 @@ public class ViewStudentUI implements IUI {
 
         Text textStudents = new Text("Student");
         ComboBox studentsComboBox = new ComboBox();
-        ArrayList<String> students = Student.getStudents();
+        ArrayList<String> students = studentDatabase.getStudents();
         for (String student : students) {
             studentsComboBox.getItems().add(student);
         }
@@ -63,11 +66,7 @@ public class ViewStudentUI implements IUI {
         studentsComboBox.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
             if (selected != null) {
-                fieldName.setText(
-                        Database.selectQuery("SELECT Name FROM Student WHERE EmailAddress = \'" + selected + "\'"));
-                System.out.println(
-                        Database.selectQuery("SELECT Name FROM Student WHERE EmailAddress = \'" + selected + "\'"));
-                output.setText("Student has been deleted");
+                fieldName.setText(studentDatabase.getName(selected));
             }
         });
 
@@ -76,9 +75,14 @@ public class ViewStudentUI implements IUI {
         delete.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
             if (selected != null) {
-                Database.selectQuery("DELETE FROM Student WHERE EmailAddress = " + "\'" + selected + "\'");
+                try {
+                    studentDatabase.removeStudent("DELETE FROM Student WHERE EmailAddress = " + "\'" + selected + "\'");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                output.setText("Student has been deleted");
                 studentsComboBox.getItems().clear();
-                ArrayList<String> newStudents = Student.getStudents();
+                ArrayList<String> newStudents = studentDatabase.getStudents();
                 for (String student : newStudents) {
                     studentsComboBox.getItems().add(student);
                 }

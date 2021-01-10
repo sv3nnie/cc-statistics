@@ -57,14 +57,14 @@ public class ValidationUtils {
 
     // Verify if the date given by the user is a valid date
     public static boolean validateDate(int day, int month, int year) {
-        int dateYear = Calendar.getInstance().get(Calendar.YEAR);
+        
         if (day > 31 || day < 1) {
             return false;
         }
         if (month < 1 || month > 12) {
             return false;
         }
-        if (year > dateYear || year < 1900) {
+        if (year < 0) {
             return false;
         }
         // check date for february

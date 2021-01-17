@@ -1,5 +1,7 @@
 package application.UI;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -40,6 +42,7 @@ public class ViewStudentUI implements IUI {
         Button delete = new Button("Delete Student");
         Button back = new Button("Back");
         Button addCertificate = new Button("Add Certificate");
+        Button addEnrollment = new Button("Add Enrollment");
         Text textName = new Text("Name");
         Text textDoB = new Text("Date of Birth");
         Text textGender = new Text("Gender");
@@ -67,10 +70,17 @@ public class ViewStudentUI implements IUI {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
             if (selected != null) {
                 fieldName.setText(studentDatabase.getName(selected));
+                fieldDoB.setText(studentDatabase.getInfo(selected, "DateOfBirth"));
+                fieldGender.setText(studentDatabase.getInfo(selected, "Gender"));
+                fieldCity.setText(studentDatabase.getInfo(selected, "City"));
+                fieldAddress.setText(studentDatabase.getInfo(selected, "Address"));
+                fieldCountry.setText(studentDatabase.getInfo(selected, "Country"));
+                fieldPostalCode.setText(studentDatabase.getInfo(selected, "PostalCode"));
             }
         });
 
         back.setOnAction((event) -> controller.switchScene("studentmenu"));
+        addEnrollment.setOnAction((event) -> controller.switchScene("enrollmentmenu"));
 
         delete.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
@@ -81,11 +91,14 @@ public class ViewStudentUI implements IUI {
                     e.printStackTrace();
                 }
                 output.setText("Student has been deleted");
+                System.out.println(selected);
                 studentsComboBox.getItems().clear();
                 ArrayList<String> newStudents = studentDatabase.getStudents();
                 for (String student : newStudents) {
                     studentsComboBox.getItems().add(student);
                 }
+            } else {
+                output.setText("No student has been selected");
             }
         });
 
@@ -116,17 +129,30 @@ public class ViewStudentUI implements IUI {
         gridPane.add(fieldPostalCode, 1, 7);
         VBox vbox = new VBox();
         Text certificate = new Text("Certificates");
+        Text enrollment = new Text("Enrollments");
         TableView table = new TableView();
+        TableView enrollmentTable = new TableView();
         TableColumn courseName = new TableColumn("Course");
         TableColumn grade = new TableColumn("Grade");
         TableColumn employee = new TableColumn("Employee");
         table.getColumns().addAll(courseName, grade, employee);
         table.setMaxHeight(100);
+        enrollmentTable.getColumns().addAll(courseName);
+        enrollmentTable.setMaxHeight(100);
+        ObservableList<String> data = FXCollections.observableArrayList();
+        data.add("Test");
+        data.add("Test");
+        enrollmentTable.setItems(data);
         vbox.getChildren().add(certificate);
         vbox.getChildren().add(table);
         addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addCertificate.setMaxWidth(200);
         vbox.getChildren().add(addCertificate);
+        vbox.getChildren().add(enrollment);
+        vbox.getChildren().add(enrollmentTable);
+        addEnrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        addEnrollment.setMaxWidth(200);
+        vbox.getChildren().add(addEnrollment);
         vbox.getChildren().add(delete);
         vbox.getChildren().add(back);
         vbox.getChildren().add(output);

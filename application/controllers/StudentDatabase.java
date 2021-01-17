@@ -30,7 +30,7 @@ public class StudentDatabase extends Database {
         return results;
     }
 
-    public boolean checkDuplicate(String email) {
+    public boolean checkDuplicate(String email) { 
         try {
             connectDatabase();
 
@@ -65,7 +65,26 @@ public class StudentDatabase extends Database {
         } catch (Exception e) {
             System.out.println("ERROR:\n\n" + e);
         }
-        return "None";
+        return "";
+    }
+
+    public String getInfo(String email, String item) {
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT " + item + " FROM Student WHERE EmailAddress = \'" + email + "\'";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                return resultSet.getString(item);
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return "";
     }
 
     public void addStudent(String query) throws SQLException {

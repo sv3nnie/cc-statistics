@@ -33,6 +33,12 @@ public class UIController extends Application {
             case "viewstudent":
                 stage.setScene((new ViewStudentUI().getUI(this)));
                 break;
+            case "enrollmentmenu":
+                stage.setScene((new EnrollmentMenuUI().getUI(this)));
+                break;
+            case "addenrollment":
+                stage.setScene((new AddEnrollmentUI().getUI(this)));
+                break;
             default:
                 break;
         }

@@ -53,7 +53,7 @@ public class EnrollmentMenuUI implements IUI {
 
         gridPane.add(addEnrollment, 0, 1);
         gridPane.add(removeEnrollment, 1, 1);
-
+        
         layout.setTop(vBox);
         layout.setCenter(gridPane);
         layout.setBottom(bottom);

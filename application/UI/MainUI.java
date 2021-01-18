@@ -56,8 +56,18 @@ public class MainUI implements IUI {
         gridPane.add(enrollment, 0, 2);
         gridPane.add(certificate, 1, 2);
 
-        layout.setBottom(gridPane);
+        VBox bottom = new VBox();
+        bottom.setAlignment(Pos.CENTER);
+        Button stats = new Button("Statistics");
+        stats.setMinWidth(400);
+        stats.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        stats.setOnAction((event) -> controller.switchScene("main"));
+        bottom.setPadding(new Insets(0, 10, 10, 10));
+        bottom.getChildren().add(stats);
+
         layout.setTop(vBox);
+        layout.setCenter(gridPane);
+        layout.setBottom(bottom);
 
         Scene scene = new Scene(layout);
         return scene;

@@ -84,7 +84,7 @@ public class ViewStudentUI implements IUI {
 
         delete.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
-            if (selected != null) {
+            if (selected != "null") {
                 try {
                     studentDatabase.removeStudent("DELETE FROM Student WHERE EmailAddress = " + "\'" + selected + "\'");
                 } catch (SQLException e) {

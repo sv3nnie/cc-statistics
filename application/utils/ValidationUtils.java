@@ -1,7 +1,6 @@
 package application.utils;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,7 +56,7 @@ public class ValidationUtils {
 
     // Verify if the date given by the user is a valid date
     public static boolean validateDate(int day, int month, int year) {
-        
+
         if (day > 31 || day < 1) {
             return false;
         }

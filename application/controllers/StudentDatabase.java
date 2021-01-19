@@ -1,6 +1,5 @@
 package application.controllers;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -10,7 +9,7 @@ public class StudentDatabase extends Database {
         super(connectionUrl);
     }
 
-    public ArrayList getStudents() {
+    public ArrayList<String> getStudents() {
         ArrayList<String> results = new ArrayList<>();
         try {
             connectDatabase();

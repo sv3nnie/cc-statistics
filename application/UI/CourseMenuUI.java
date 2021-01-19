@@ -25,21 +25,13 @@ public class CourseMenuUI implements IUI {
         vBox.setAlignment(Pos.BASELINE_CENTER);
         title.setFont(new Font(18));
         subtitle.setFont(new Font(18));
-        Button newModule = new Button("New Module");
-        Button newContent = new Button("New Content");
         Button newCourse = new Button("New Course");
         Button editCourse = new Button("Add Content To Existing Course");
         newCourse.setMinWidth(200);
         newCourse.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        newModule.setMinWidth(200);
-        newModule.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        newContent.setMinWidth(200);
-        newContent.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         editCourse.setMinWidth(200);
         editCourse.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
 
-        newModule.setOnAction((event) -> controller.switchScene("newmodulemenu"));
-        newContent.setOnAction((event) -> controller.switchScene("newcontentmenu"));
         newCourse.setOnAction((event) -> controller.switchScene("newcoursemenu"));
         editCourse.setOnAction((event) -> controller.switchScene("addcontenttocourse"));
 
@@ -51,10 +43,8 @@ public class CourseMenuUI implements IUI {
         gridPane.setHgap(5);
 
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.add(newModule, 0, 1);
-        gridPane.add(newContent, 1, 1);
-        gridPane.add(newCourse, 0, 2);
-        gridPane.add(editCourse, 1, 2);
+        gridPane.add(newCourse, 0, 1);
+        gridPane.add(editCourse, 1, 1);
         VBox bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
         Button back = new Button("Back to home");

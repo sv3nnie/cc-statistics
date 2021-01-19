@@ -31,12 +31,12 @@ public class AddEnrollmentUI implements IUI {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);
         layout.setStyle("-fx-background-color: #EEF5FC;");
-        ComboBox studentsComboBox = new ComboBox();
+        ComboBox<String> studentsComboBox = new ComboBox<String>();
         ArrayList<String> students = studentDatabase.getStudents();
         for (String student : students) {
             studentsComboBox.getItems().add(student);
         }
-        ComboBox courseComboBox = new ComboBox();
+        ComboBox<String> courseComboBox = new ComboBox<String>();
         ArrayList<String> courses = courseDatabase.getCourses();
         for (String course : courses) {
             courseComboBox.getItems().add(course);

@@ -9,7 +9,7 @@ public class CourseDatabase extends Database {
         super(connectionUrl);
     }
 
-    public ArrayList getCourses() {
+    public ArrayList<String> getCourses() {
         ArrayList<String> results = new ArrayList<>();
         try {
             connectDatabase();

@@ -1,12 +1,7 @@
 package application.controllers;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public class EnrollmentDatabase extends Database {
 

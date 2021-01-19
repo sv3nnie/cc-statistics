@@ -33,7 +33,7 @@ public class ViewStudentUI implements IUI {
         layout.setStyle("-fx-background-color: #EEF5FC;");
 
         Text textStudents = new Text("Student");
-        ComboBox studentsComboBox = new ComboBox();
+        ComboBox<String> studentsComboBox = new ComboBox<String>();
         ArrayList<String> students = studentDatabase.getStudents();
         for (String student : students) {
             studentsComboBox.getItems().add(student);

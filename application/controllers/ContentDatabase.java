@@ -9,7 +9,7 @@ public class ContentDatabase extends Database {
         super(connectionUrl);
     }
 
-    public ArrayList getAvailableModules() {
+    public ArrayList<String> getAvailableModules() {
         ArrayList<String> results = new ArrayList<>();
         try {
             connectDatabase();
@@ -29,7 +29,7 @@ public class ContentDatabase extends Database {
         return results;
     }
 
-    public ArrayList getAvailableContent() {
+    public ArrayList<String> getAvailableContent() {
         ArrayList<String> results = new ArrayList<>();
         try {
             connectDatabase();

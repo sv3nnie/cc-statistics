@@ -38,7 +38,7 @@ public class NewCourseMenuUI implements IUI {
 
         TextField fieldCourseName = new TextField();
         TextField fieldSubject = new TextField();
-        ComboBox difficulty = new ComboBox();
+        ComboBox<String> difficulty = new ComboBox<String>();
         ArrayList<String> difficulties = new ArrayList<>();
         difficulties.add("Easy");
         difficulties.add("Medium");
@@ -47,7 +47,7 @@ public class NewCourseMenuUI implements IUI {
             difficulty.getItems().add(difficulty1);
         }
         TextField fieldIntroduction = new TextField();
-        ComboBox modules = new ComboBox();
+        ComboBox<String> modules = new ComboBox<String>();
         ArrayList<String> modulelist = contentDatabase.getAvailableModules();
         for (String module : modulelist) {
             modules.getItems().add(module);

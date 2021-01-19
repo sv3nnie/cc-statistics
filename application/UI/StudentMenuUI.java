@@ -27,12 +27,16 @@ public class StudentMenuUI implements IUI {
         subtitle.setFont(new Font(18));
         Button addStudent = new Button("Add new student");
         Button viewStudent = new Button("View student");
+        Button manageStudentProgession = new Button("Manage student progression");
         addStudent.setMinWidth(200);
         addStudent.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         viewStudent.setMinWidth(200);
         viewStudent.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        manageStudentProgession.setMinWidth(200);
+        manageStudentProgession.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addStudent.setOnAction((event) -> controller.switchScene("addstudent"));
         viewStudent.setOnAction((event) -> controller.switchScene("viewstudent"));
+        viewStudent.setOnAction((event) -> controller.switchScene("managestudentprogression"));
         VBox bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
         Button back = new Button("Back to home");
@@ -43,8 +47,9 @@ public class StudentMenuUI implements IUI {
 
         GridPane gridPane = new GridPane();
 
-        gridPane.setPadding(new Insets(10, 10, 0, 10));
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
         bottom.setPadding(new Insets(0, 10, 10, 10));
+        bottom.setSpacing(10);
 
         gridPane.setVgap(5);
         gridPane.setHgap(5);
@@ -53,6 +58,7 @@ public class StudentMenuUI implements IUI {
 
         gridPane.add(addStudent, 0, 1);
         gridPane.add(viewStudent, 1, 1);
+        gridPane.add(manageStudentProgession, 0, 2);
 
         layout.setTop(vBox);
         layout.setCenter(gridPane);

@@ -27,12 +27,12 @@ public class AddContentToCourse implements IUI {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);
         layout.setStyle("-fx-background-color: #EEF5FC;");
-        ComboBox courseComboBox = new ComboBox();
+        ComboBox<String> courseComboBox = new ComboBox<String>();
         ArrayList<String> courses = courseDatabase.getCourses();
         for (String course : courses) {
             courseComboBox.getItems().add(course);
         }
-        ComboBox contentComboBox = new ComboBox();
+        ComboBox<String> contentComboBox = new ComboBox<String>();
         ArrayList<String> contents = contentDatabase.getAvailableContent();
         for (String content : contents) {
             contentComboBox.getItems().add(content);

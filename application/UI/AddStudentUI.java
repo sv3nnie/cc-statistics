@@ -45,7 +45,7 @@ public class AddStudentUI implements IUI {
         TextField fieldYear = new TextField();
         fieldYear.setPrefWidth(60);
         fieldYear.setMaxWidth(60);
-        ComboBox genders = new ComboBox();
+        ComboBox<Gender> genders = new ComboBox<Gender>();
         genders.getItems().addAll(Gender.values());
         TextField fieldCity = new TextField();
         TextField fieldAddress = new TextField();

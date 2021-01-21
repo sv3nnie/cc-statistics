@@ -12,7 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MainUI implements IUI {
-
+    
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         VBox vBox = new VBox();

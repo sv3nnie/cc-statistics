@@ -11,6 +11,7 @@ public class Student {
     private static StudentDatabase studentDatabase = new StudentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
+    //add a new student to the database including all the needed validations
     public static String addStudent(String email, String name, int dayDate, int monthDate, int yearDate, String gender,
             String country, String city, String address, String postalCode) throws SQLException {
         if (!ValidationUtils.validateEmail(email)) {

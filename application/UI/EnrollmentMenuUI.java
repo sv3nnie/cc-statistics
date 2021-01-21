@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 
 public class EnrollmentMenuUI implements IUI {
 
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         VBox vBox = new VBox();

@@ -37,7 +37,7 @@ public class ValidationUtils {
     }
 
     // validate if the cerfiticate rating is valid (1-10)
-    public static boolean validateRating(int rating) {
+    public static boolean validateRating(double rating) {
         if (rating < 1 || rating > 10) {
             return false;
         }

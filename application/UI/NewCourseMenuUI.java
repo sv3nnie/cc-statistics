@@ -20,11 +20,14 @@ import application.controllers.CourseDatabase;
 import application.controllers.UIController;
 
 public class NewCourseMenuUI implements IUI {
+
+    // connection to the required databases for this class
     private ContentDatabase contentDatabase = new ContentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
     private CourseDatabase courseDatabase = new CourseDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);

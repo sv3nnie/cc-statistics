@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 
 public class AddEnrollmentUI implements IUI {
 
+    // connection to the required databases for this class
     private StudentDatabase studentDatabase = new StudentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
     private CourseDatabase courseDatabase = new CourseDatabase(
@@ -27,6 +28,7 @@ public class AddEnrollmentUI implements IUI {
     private EnrollmentDatabase enrollmentDatabase = new EnrollmentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);
@@ -61,9 +63,6 @@ public class AddEnrollmentUI implements IUI {
         gridPane.add(courseComboBox, 1, 0);
         gridPane.add(textStudent, 0, 1);
         gridPane.add(studentsComboBox, 1, 1);
-        // Styling nodes
-        // delete.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        // delete.setMaxWidth(200);
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
 

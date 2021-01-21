@@ -9,6 +9,7 @@ public class StudentDatabase extends Database {
         super(connectionUrl);
     }
 
+    //get all students from the database
     public ArrayList<String> getStudents() {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -29,6 +30,7 @@ public class StudentDatabase extends Database {
         return results;
     }
 
+    //check for duplicate students in the database (used when creating a new student)
     public boolean checkDuplicate(String email) { 
         try {
             connectDatabase();
@@ -48,6 +50,7 @@ public class StudentDatabase extends Database {
         return false;
     }
 
+    //get the name from a student from the database using their e-mailaddress
     public String getName(String email) {
         try {
             connectDatabase();
@@ -67,6 +70,7 @@ public class StudentDatabase extends Database {
         return "";
     }
 
+    //get any info (address, postalcode, etc.) from the database using the students' e-mailaddress
     public String getInfo(String email, String item) {
         try {
             connectDatabase();
@@ -86,10 +90,12 @@ public class StudentDatabase extends Database {
         return "";
     }
 
+    //add a new student to the database
     public void addStudent(String query) throws SQLException {
         statement.executeUpdate(query);
     }
 
+    //remove a student from the database
     public void removeStudent(String query) throws SQLException {
         statement.executeUpdate(query);
     }

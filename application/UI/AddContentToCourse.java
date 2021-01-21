@@ -18,11 +18,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class AddContentToCourse implements IUI {
+
+    // connection to the required databases for this class
     private CourseDatabase courseDatabase = new CourseDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
     private ContentDatabase contentDatabase = new ContentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
+    //method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);
@@ -62,7 +65,7 @@ public class AddContentToCourse implements IUI {
 
         layout.setTop(gridPane);
         VBox vbox = new VBox();
-        Button addEnrollment = new Button("Add Enrollment to Student");
+        Button addEnrollment = new Button("Add Content to Course");
         addEnrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addEnrollment.setMaxWidth(200);
         addEnrollment.setOnAction((event) -> {
@@ -72,7 +75,7 @@ public class AddContentToCourse implements IUI {
                 // set coursename in content to coursename or module coursename to coursename
                 // here
             } else {
-                output.setText("Please select a course and student");
+                output.setText("Please select a course and content");
             }
         });
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");

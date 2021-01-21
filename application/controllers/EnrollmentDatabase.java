@@ -9,6 +9,7 @@ public class EnrollmentDatabase extends Database {
         super(connectionUrl);
     }
 
+    //check for duplicate enrollments
     public boolean checkDuplicate(String email, String courseName) {
         try {
             connectDatabase();
@@ -29,6 +30,7 @@ public class EnrollmentDatabase extends Database {
         return false;
     }
 
+    //add a new enrollment to the database
     public void addEnrollment(String email, String courseName) throws SQLException {
         LocalDate localDate = LocalDate.now();
         int year = localDate.getYear();

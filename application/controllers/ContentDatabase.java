@@ -9,6 +9,7 @@ public class ContentDatabase extends Database {
         super(connectionUrl);
     }
 
+    //get all available modules from database
     public ArrayList<String> getAvailableModules() {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -29,6 +30,7 @@ public class ContentDatabase extends Database {
         return results;
     }
 
+    //get all available content from database
     public ArrayList<String> getAvailableContent() {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -58,6 +60,7 @@ public class ContentDatabase extends Database {
         return results;
     }
 
+    //update/edit a module with a coursename (used when creating a new course)
     public void editModule(String module, String courseName) throws SQLException {
         String query = "UPDATE Module SET CourseName = \'" + courseName + "\' WHERE Title = \'" + module + "\'";
         statement.executeUpdate(query);

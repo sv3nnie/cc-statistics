@@ -20,6 +20,7 @@ import application.logic.Gender;
 
 public class AddStudentUI implements IUI {
 
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);

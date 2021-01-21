@@ -1,15 +1,11 @@
 package application.UI;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -24,9 +20,11 @@ import application.controllers.UIController;
 
 public class ViewStudentUI implements IUI {
 
+    //connection to the required databases for this class
     private StudentDatabase studentDatabase = new StudentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);
@@ -128,28 +126,9 @@ public class ViewStudentUI implements IUI {
         gridPane.add(textPostalCode, 0, 7);
         gridPane.add(fieldPostalCode, 1, 7);
         VBox vbox = new VBox();
-        Text certificate = new Text("Certificates");
-        Text enrollment = new Text("Enrollments");
-        TableView table = new TableView();
-        TableView enrollmentTable = new TableView();
-        TableColumn courseName = new TableColumn("Course");
-        TableColumn grade = new TableColumn("Grade");
-        TableColumn employee = new TableColumn("Employee");
-        table.getColumns().addAll(courseName, grade, employee);
-        table.setMaxHeight(100);
-        enrollmentTable.getColumns().addAll(courseName);
-        enrollmentTable.setMaxHeight(100);
-        ObservableList<String> data = FXCollections.observableArrayList();
-        data.add("Test");
-        data.add("Test");
-        enrollmentTable.setItems(data);
-        vbox.getChildren().add(certificate);
-        vbox.getChildren().add(table);
         addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addCertificate.setMaxWidth(200);
         vbox.getChildren().add(addCertificate);
-        vbox.getChildren().add(enrollment);
-        vbox.getChildren().add(enrollmentTable);
         addEnrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addEnrollment.setMaxWidth(200);
         vbox.getChildren().add(addEnrollment);

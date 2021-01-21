@@ -8,6 +8,7 @@ public class UIController extends Application {
 
     private Stage stage = null;
 
+    //start the application and show the mainUI
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
@@ -19,6 +20,7 @@ public class UIController extends Application {
         stage.show();
     }
 
+    //method to switch between all the different UI's
     public void switchScene(String scene) {
         switch (scene) {
             case "main":

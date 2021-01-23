@@ -65,7 +65,7 @@ public class ViewStudentUI implements IUI {
 
         studentsComboBox.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
-            if (selected != null) {
+            if (selected != "null") {
                 allCertificates.setText(studentDatabase.getCertificates(selected));
                 fieldName.setText(studentDatabase.getName(selected));
                 fieldDoB.setText(studentDatabase.getInfo(selected, "DateOfBirth"));

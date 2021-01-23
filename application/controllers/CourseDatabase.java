@@ -58,6 +58,19 @@ public class CourseDatabase extends Database {
         statement.executeUpdate(query);
     }
 
+    public void addProgress(String emailaddress, int id) throws SQLException {
+        int progress = 0;
+        String query = "INSERT INTO Progress(StudentEmailAddress, ContentItemId, ProgressPercentage) VALUES (\'"
+                + emailaddress + "\',\'" + id + "\',\'" + progress + "\')";
+        statement.executeUpdate(query);
+    }
+
+    public void editProgress(String emailaddress, int id, double progress) throws SQLException {
+        String query = "UPDATE Progress SET ProgressPercentage = \'" + progress + "\' WHERE StudentEmailAddress = \'"
+                + emailaddress + "\' AND ContentItemId = \'" + id + "\'";
+        statement.executeUpdate(query);
+    }
+
     public ArrayList<String> getInterestingCourses(String selected) {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -76,5 +89,95 @@ public class CourseDatabase extends Database {
             System.out.println("ERROR:\n\n" + e);
         }
         return results;
+    }
+
+    public ArrayList<String> getContent(String course) {
+        ArrayList<String> results = new ArrayList<>();
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT Title FROM Module WHERE ContentItemId IN(SELECT ContentItemId FROM Content WHERE CourseName = \'"
+                    + course + "\')";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                results.add("[Module] " + resultSet.getString("Title"));
+            }
+
+            SQL = "SELECT Title FROM Webcast WHERE ContentItemId IN(SELECT ContentItemId FROM Content WHERE CourseName = \'"
+                    + course + "\')";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                results.add("[Webcast] " + resultSet.getString("Title"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return results;
+    }
+
+    public ArrayList<Integer> getContentIds(String course) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        try {
+            connectDatabase();
+            String SQL = "SELECT ContentItemId FROM Module WHERE ContentItemId IN(SELECT ContentItemId FROM Content WHERE CourseName = \'"
+                    + course + "\')";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt("ContentItemId"));
+            }
+
+            SQL = "SELECT ContentItemId FROM Webcast WHERE ContentItemId IN(SELECT ContentItemId FROM Content WHERE CourseName = \'"
+                    + course + "\')";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt("ContentItemId"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return ids;
+    }
+
+    public Integer getContentId(String title, String type) {
+        try {
+            connectDatabase();
+            if (type.equals("Module")) {
+                String SQL = "SELECT ContentItemId FROM Module WHERE Title = \'" + title + "\'";
+                statement = connection.createStatement();
+
+                resultSet = statement.executeQuery(SQL);
+
+                while (resultSet.next()) {
+                    return resultSet.getInt("ContentItemId");
+                }
+            } else if (type.equals("Webcast")) {
+                String SQL = "SELECT ContentItemId FROM Webcast WHERE Title = \'" + title + "\'";
+                statement = connection.createStatement();
+
+                resultSet = statement.executeQuery(SQL);
+
+                while (resultSet.next()) {
+                    return resultSet.getInt("ContentItemId");
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return -1;
     }
 }

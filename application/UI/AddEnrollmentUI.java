@@ -74,10 +74,13 @@ public class AddEnrollmentUI implements IUI {
         addEnrollment.setOnAction((event) -> {
             String selectedStudent = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
             String selectedCourse = String.valueOf(courseComboBox.getSelectionModel().getSelectedItem());
-            System.out.println(selectedStudent);
             if (selectedStudent != "null" && selectedCourse != "null") {
                 if (!enrollmentDatabase.checkDuplicate(selectedStudent, selectedCourse)) {
                     try {
+                        ArrayList<Integer> ids = courseDatabase.getContentIds(selectedCourse);
+                        for (int id : ids) {
+                            courseDatabase.addProgress(selectedStudent, id);
+                        }
                         enrollmentDatabase.addEnrollment(selectedStudent, selectedCourse);
                         output.setText("Succesfully added enrollment for " + selectedStudent);
                     } catch (SQLException e) {

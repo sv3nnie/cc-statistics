@@ -32,9 +32,13 @@ public class CourseMenuUI implements IUI {
         newCourse.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         editCourse.setMinWidth(200);
         editCourse.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        Button relatedCourses = new Button("View related courses");
+        relatedCourses.setMinWidth(200);
+        relatedCourses.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
 
         newCourse.setOnAction((event) -> controller.switchScene("newcoursemenu"));
         editCourse.setOnAction((event) -> controller.switchScene("addcontenttocourse"));
+        relatedCourses.setOnAction((event) -> controller.switchScene("relatedcoursemenu"));
 
         GridPane gridPane = new GridPane();
 
@@ -46,6 +50,7 @@ public class CourseMenuUI implements IUI {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.add(newCourse, 0, 1);
         gridPane.add(editCourse, 1, 1);
+        gridPane.add(relatedCourses, 0, 2);
         VBox bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
         Button back = new Button("Back to home");

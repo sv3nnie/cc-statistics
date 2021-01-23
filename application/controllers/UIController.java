@@ -8,7 +8,7 @@ public class UIController extends Application {
 
     private Stage stage = null;
 
-    //start the application and show the mainUI
+    // start the application and show the mainUI
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
@@ -20,12 +20,13 @@ public class UIController extends Application {
         stage.show();
     }
 
-    //method to switch between all the different UI's
+    // method to switch between all the different UI's
     public void switchScene(String scene) {
         switch (scene) {
             case "main":
                 stage.setScene((new MainUI().getUI(this)));
                 break;
+            // course related UI's
             case "coursemenu":
                 stage.setScene((new CourseMenuUI().getUI(this)));
                 break;
@@ -35,6 +36,10 @@ public class UIController extends Application {
             case "newcoursemenu":
                 stage.setScene((new NewCourseMenuUI().getUI(this)));
                 break;
+            case "relatedcoursemenu":
+                stage.setScene((new RelatedCoursesMenuUI().getUI(this)));
+                break;
+            // student related UI's
             case "studentmenu":
                 stage.setScene((new StudentMenuUI().getUI(this)));
                 break;
@@ -44,11 +49,19 @@ public class UIController extends Application {
             case "viewstudentmenu":
                 stage.setScene((new ViewStudentUI().getUI(this)));
                 break;
+            // enrollment related UI's
             case "enrollmentmenu":
                 stage.setScene((new EnrollmentMenuUI().getUI(this)));
                 break;
             case "addenrollment":
                 stage.setScene((new AddEnrollmentUI().getUI(this)));
+                break;
+            // certificate related UI's
+            case "certificatemenu":
+                stage.setScene((new CertificateMenuUI().getUI(this)));
+                break;
+            case "addcertificatemenu":
+                stage.setScene((new AddCertificateMenu().getUI(this)));
                 break;
             default:
                 break;

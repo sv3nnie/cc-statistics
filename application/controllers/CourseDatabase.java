@@ -63,13 +63,13 @@ public class CourseDatabase extends Database {
         try {
             connectDatabase();
 
-            String SQL = "SELECT * FROM InterstingCourse WHERE CourseName= \'" + selected + "\'";
+            String SQL = "SELECT InterestingCourseName FROM InterestingCourse WHERE CourseName = \'" + selected + "\'";
             statement = connection.createStatement();
 
             resultSet = statement.executeQuery(SQL);
 
             while (resultSet.next()) {
-                results.add(resultSet.getString("INterestingCourseName"));
+                results.add(resultSet.getString("InterestingCourseName"));
             }
 
         } catch (Exception e) {

@@ -80,7 +80,6 @@ public class AddStudentUI implements IUI {
                             fieldCountry.getText(), fieldCity.getText(), fieldAddress.getText(),
                             fieldPostalCode.getText()));
                 } catch (NumberFormatException | SQLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

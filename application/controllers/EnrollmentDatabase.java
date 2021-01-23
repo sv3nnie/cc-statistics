@@ -2,6 +2,7 @@ package application.controllers;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EnrollmentDatabase extends Database {
 
@@ -9,7 +10,7 @@ public class EnrollmentDatabase extends Database {
         super(connectionUrl);
     }
 
-    //check for duplicate enrollments
+    // check for duplicate enrollments
     public boolean checkDuplicate(String email, String courseName) {
         try {
             connectDatabase();
@@ -30,7 +31,7 @@ public class EnrollmentDatabase extends Database {
         return false;
     }
 
-    //add a new enrollment to the database
+    // add a new enrollment to the database
     public void addEnrollment(String email, String courseName) throws SQLException {
         LocalDate localDate = LocalDate.now();
         int year = localDate.getYear();
@@ -41,4 +42,58 @@ public class EnrollmentDatabase extends Database {
                 + courseName + "\',\'" + date + "\')";
         statement.executeUpdate(query);
     }
+
+    public String getDate(String email, String courseName) {
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT EnrollmentDate FROM Enrollment WHERE EmailAddress = \'" + email
+                    + "\' AND CourseName = \'" + courseName + "\'";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                return resultSet.getString("EnrollmentDate");
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return "";
+    }
+
+    public void addCertificate(String email, String courseName, String employee, double grade) throws SQLException {
+        LocalDate localDate = LocalDate.parse(getDate(email, courseName));
+        int year = localDate.getYear();
+        int month = localDate.getMonthValue();
+        int day = localDate.getDayOfMonth();
+        LocalDate date = LocalDate.of(year, month, day);
+        String query = "INSERT INTO Certificate(Grade, Employee, StudentEmailAddress, CourseName, EnrollmentDate) VALUES (\'"
+                + grade + "\',\'" + employee + "\',\'" + email + "\',\'" + courseName + "\',\'" + date + "\')";
+        statement.executeUpdate(query);
+    }
+
+    public ArrayList<String> getAvailableCertificates(String email) {
+        ArrayList<String> results = new ArrayList<>();
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT CourseName FROM Enrollment WHERE EmailAddress = \'" + email
+                    + "\' AND CourseName NOT IN(SELECT CourseName FROM Certificate WHERE StudentEmailAddress = \'"
+                    + email + "\')";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                results.add(resultSet.getString("CourseName"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return results;
+    }
+
 }

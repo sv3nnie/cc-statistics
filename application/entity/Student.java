@@ -20,7 +20,7 @@ public class Student {
         if (!ValidationUtils.validateDate(dayDate, monthDate, yearDate)) {
             return "Invalid date";
         }
-        if (!ValidationUtils.validatePostalcode(postalCode)) {
+        if (!ValidationUtils.validatePostalCode(postalCode)) {
             return "Invalid postalcode (0000 AA)";
         }
         // set input date to valid local date

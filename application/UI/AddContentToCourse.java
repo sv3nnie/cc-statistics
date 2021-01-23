@@ -25,7 +25,7 @@ public class AddContentToCourse implements IUI {
     private ContentDatabase contentDatabase = new ContentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
-    //method which creates a new UI
+    // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         layout.setMinSize(500, 150);
@@ -65,22 +65,25 @@ public class AddContentToCourse implements IUI {
 
         layout.setTop(gridPane);
         VBox vbox = new VBox();
-        Button addEnrollment = new Button("Add Content to Course");
-        addEnrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        addEnrollment.setMaxWidth(200);
-        addEnrollment.setOnAction((event) -> {
+        Button addContent = new Button("Add Content to Course");
+        addContent.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        addContent.setMaxWidth(200);
+        addContent.setOnAction((event) -> {
             String selectedContent = String.valueOf(contentComboBox.getSelectionModel().getSelectedItem());
             String selectedCourse = String.valueOf(courseComboBox.getSelectionModel().getSelectedItem());
             if (selectedContent != "null" && selectedCourse != "null") {
-                // set coursename in content to coursename or module coursename to coursename
-                // here
+                try {
+                    contentDatabase.editModule(selectedContent, selectedCourse);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             } else {
                 output.setText("Please select a course and content");
             }
         });
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
-        vbox.getChildren().add(addEnrollment);
+        vbox.getChildren().add(addContent);
         vbox.getChildren().add(back);
         vbox.getChildren().add(output);
         vbox.setAlignment(Pos.CENTER);

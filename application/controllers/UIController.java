@@ -38,10 +38,10 @@ public class UIController extends Application {
             case "studentmenu":
                 stage.setScene((new StudentMenuUI().getUI(this)));
                 break;
-            case "addstudent":
+            case "addstudentmenu":
                 stage.setScene((new AddStudentUI().getUI(this)));
                 break;
-            case "viewstudent":
+            case "viewstudentmenu":
                 stage.setScene((new ViewStudentUI().getUI(this)));
                 break;
             case "enrollmentmenu":

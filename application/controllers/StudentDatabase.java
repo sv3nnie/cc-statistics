@@ -9,7 +9,7 @@ public class StudentDatabase extends Database {
         super(connectionUrl);
     }
 
-    //get all students from the database
+    // get all students from the database
     public ArrayList<String> getStudents() {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -30,8 +30,9 @@ public class StudentDatabase extends Database {
         return results;
     }
 
-    //check for duplicate students in the database (used when creating a new student)
-    public boolean checkDuplicate(String email) { 
+    // check for duplicate students in the database (used when creating a new
+    // student)
+    public boolean checkDuplicate(String email) {
         try {
             connectDatabase();
 
@@ -50,7 +51,7 @@ public class StudentDatabase extends Database {
         return false;
     }
 
-    //get the name from a student from the database using their e-mailaddress
+    // get the name from a student from the database using their e-mailaddress
     public String getName(String email) {
         try {
             connectDatabase();
@@ -70,7 +71,8 @@ public class StudentDatabase extends Database {
         return "";
     }
 
-    //get any info (address, postalcode, etc.) from the database using the students' e-mailaddress
+    // get any info (address, postalcode, etc.) from the database using the
+    // students' e-mailaddress
     public String getInfo(String email, String item) {
         try {
             connectDatabase();
@@ -90,12 +92,35 @@ public class StudentDatabase extends Database {
         return "";
     }
 
-    //add a new student to the database
+    // get all certificates from selected student email
+    public String getCertificates(String email) {
+        String results = "";
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT * FROM Certificate WHERE StudentEmailAddress = \'" + email + "\'";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                results = results + resultSet.getInt("CertificateId") + resultSet.getDouble("Grade")
+                        + resultSet.getString("Employee") + resultSet.getString("CourseName")
+                        + resultSet.getDate("EnrollmentDate") + "\n";
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return results;
+    }
+
+    // add a new student to the database
     public void addStudent(String query) throws SQLException {
         statement.executeUpdate(query);
     }
 
-    //remove a student from the database
+    // remove a student from the database
     public void removeStudent(String query) throws SQLException {
         statement.executeUpdate(query);
     }

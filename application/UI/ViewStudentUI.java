@@ -20,7 +20,7 @@ import application.controllers.UIController;
 
 public class ViewStudentUI implements IUI {
 
-    //connection to the required databases for this class
+    // connection to the required databases for this class
     private StudentDatabase studentDatabase = new StudentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
@@ -48,7 +48,7 @@ public class ViewStudentUI implements IUI {
         Text textAddress = new Text("Address");
         Text textCountry = new Text("Country");
         Text textPostalCode = new Text("Postalcode");
-
+        Text allCertificates = new Text("");
         TextField fieldName = new TextField();
         TextField fieldDoB = new TextField();
         TextField fieldGender = new TextField();
@@ -67,6 +67,7 @@ public class ViewStudentUI implements IUI {
         studentsComboBox.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
             if (selected != null) {
+                allCertificates.setText(studentDatabase.getCertificates(selected));
                 fieldName.setText(studentDatabase.getName(selected));
                 fieldDoB.setText(studentDatabase.getInfo(selected, "DateOfBirth"));
                 fieldGender.setText(studentDatabase.getInfo(selected, "Gender"));
@@ -79,6 +80,7 @@ public class ViewStudentUI implements IUI {
 
         back.setOnAction((event) -> controller.switchScene("studentmenu"));
         addEnrollment.setOnAction((event) -> controller.switchScene("enrollmentmenu"));
+        addCertificate.setOnAction((event) -> controller.switchScene("addcertificatemenu"));
 
         delete.setOnAction((event) -> {
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
@@ -126,11 +128,14 @@ public class ViewStudentUI implements IUI {
         gridPane.add(textPostalCode, 0, 7);
         gridPane.add(fieldPostalCode, 1, 7);
         VBox vbox = new VBox();
+        Text textCertificates = new Text("Certificates");
         addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addCertificate.setMaxWidth(200);
-        vbox.getChildren().add(addCertificate);
         addEnrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addEnrollment.setMaxWidth(200);
+        vbox.getChildren().add(textCertificates);
+        vbox.getChildren().add(allCertificates);
+        vbox.getChildren().add(addCertificate);
         vbox.getChildren().add(addEnrollment);
         vbox.getChildren().add(delete);
         vbox.getChildren().add(back);

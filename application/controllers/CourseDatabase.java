@@ -9,7 +9,7 @@ public class CourseDatabase extends Database {
         super(connectionUrl);
     }
 
-    //get all courses from the database
+    // get all courses from the database
     public ArrayList<String> getCourses() {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -30,7 +30,7 @@ public class CourseDatabase extends Database {
         return results;
     }
 
-    //check for duplicate coursename (used when creating a new course)
+    // check for duplicate coursename (used when creating a new course)
     public boolean checkDuplicate(String courseName) {
         try {
             connectDatabase();
@@ -50,11 +50,31 @@ public class CourseDatabase extends Database {
         return false;
     }
 
-    //add a new course to the database with all the required information
+    // add a new course to the database with all the required information
     public void addCourse(String courseName, String subject, String difficulty, String introductionText)
             throws SQLException {
         String query = "INSERT INTO Course(CourseName, Subject, Difficulty, IntroductionText) VALUES (\'" + courseName
                 + "\',\'" + subject + "\',\'" + difficulty + "\',\'" + introductionText + "\')";
         statement.executeUpdate(query);
+    }
+
+    public ArrayList<String> getInterestingCourses(String selected) {
+        ArrayList<String> results = new ArrayList<>();
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT * FROM InterstingCourse WHERE CourseName= \'" + selected + "\'";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                results.add(resultSet.getString("INterestingCourseName"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return results;
     }
 }

@@ -13,7 +13,7 @@ public class ValidationUtils {
     private static final String regexURL = "https?://" + "[a-zA-Z0-9@:%._\\+~#?&//=]" + "{1,256}\\.[a-z]"
             + "{1,256}\\b([-a-zA-Z0-9@:%" + "._\\+~#?&//=]*)" + "[a-zA-Z0-9@:%._\\+~#?&//=]";
     // Regex to validate postal codes
-    private static final String regexPostalcode = "[1-9]" + "[0-9]" + "[0-9]" + "[0-9]" + " " + "[A-Z]" + "[A-Z]";
+    private static final String regexPostalCode = "[1-9][0-9]{3}[A-Z]{2}";
 
     // validate if the given e-mail is a valid e-mail
     public static boolean validateEmail(String email) {
@@ -23,11 +23,28 @@ public class ValidationUtils {
     }
 
     // validate if the given postalcode is a valid postalcode
-    public static boolean validatePostalcode(String postalcode) {
-        Pattern pattern = Pattern.compile(regexPostalcode);
-        Matcher matcher = pattern.matcher(postalcode);
+    public static boolean validatePostalCode(String postalCode) {
+        Pattern pattern = Pattern.compile(regexPostalCode);
+        Matcher matcher = pattern.matcher(postalCode);
         return matcher.matches();
     }
+
+    // Format postalCode input.
+    // Throws nullPointerException when input is empty.
+    // Throws illegalArgumentException when input is invalid.
+    public static String formatPostalCode(String postalCode) {
+        if (postalCode.equals("")) {
+            throw new NullPointerException("Parameter postalCode was empty");
+        }
+        postalCode = postalCode.replace(" ", "").toUpperCase();
+        Pattern pattern = Pattern.compile(regexPostalCode);
+        Matcher matcher = pattern.matcher(postalCode);
+        if (matcher.matches()) {
+            return new StringBuilder(postalCode).insert(4, " ").toString();
+        }
+        throw new IllegalArgumentException("PostalCode was invalid: " + postalCode);
+    }
+
 
     // validate if the given URL is a valid URL
     public static boolean validateURL(String url) {
@@ -36,7 +53,7 @@ public class ValidationUtils {
         return matcher.matches();
     }
 
-    // validate if the cerfiticate rating is valid (1-10)
+    // validate if the certificate rating is valid (1-10)
     public static boolean validateRating(double rating) {
         if (rating < 1 || rating > 10) {
             return false;
@@ -80,8 +97,8 @@ public class ValidationUtils {
         }
         // Month 1, 3, 5, 7, 8, 10, 12 = max 31 days
         // Month 4, 6, 9, 11 = max 30 days
-        int[] days31 = { 1, 3, 5, 7, 8, 10, 12 };
-        int[] days30 = { 4, 6, 9, 11 };
+        int[] days31 = {1, 3, 5, 7, 8, 10, 12};
+        int[] days30 = {4, 6, 9, 11};
         if (Arrays.stream(days31).anyMatch(i -> i == month)) {
             if (day > 31) {
                 return false;

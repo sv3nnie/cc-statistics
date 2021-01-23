@@ -1,20 +1,17 @@
 package application.UI;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.controllers.CourseDatabase;
 import application.controllers.EnrollmentDatabase;
 import application.controllers.StudentDatabase;
 import application.controllers.UIController;
-import application.utils.ValidationUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;

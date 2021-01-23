@@ -1,5 +1,6 @@
 package application.UI;
 
+import application.controllers.CertificateDatabase;
 import application.controllers.UIController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,12 +13,16 @@ import javafx.scene.text.Text;
 
 public class CertificateMenuUI implements IUI {
 
+    // connection to the required databases for this class
+    private CertificateDatabase certificateDatabase = new CertificateDatabase(
+            "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
+
     // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
         VBox vBox = new VBox();
         layout.setStyle("-fx-background-color: #EEF5FC;");
-        layout.setMinSize(500, 150);
+        layout.setMinSize(500, 230);
         Text title = new Text("CC-Statistics");
         Text subtitle = new Text("Certificate Management");
         vBox.getChildren().add(title);
@@ -32,11 +37,16 @@ public class CertificateMenuUI implements IUI {
         VBox bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
         Button back = new Button("Back to home");
+        Text textTop3 = new Text("Top 3 given certificates:");
+        Text textTop3Result = new Text("");
+        textTop3Result.setText(certificateDatabase.getTop3());
         back.setMinWidth(400);
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setOnAction((event) -> controller.switchScene("main"));
         bottom.getChildren().add(addCertificate);
         bottom.getChildren().add(back);
+        bottom.getChildren().add(textTop3);
+        bottom.getChildren().add(textTop3Result);
         bottom.setPadding(new Insets(0, 10, 10, 10));
         bottom.setSpacing(10);
 

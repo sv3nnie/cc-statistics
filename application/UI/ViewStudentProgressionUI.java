@@ -3,6 +3,7 @@ package application.UI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import application.controllers.CourseDatabase;
 import application.controllers.EnrollmentDatabase;
 import application.controllers.StudentDatabase;
 import application.controllers.UIController;
@@ -19,12 +20,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class AddCertificateMenu implements IUI {
+public class ViewStudentProgressionUI implements IUI {
 
     // connection to the required databases for this class
     private StudentDatabase studentDatabase = new StudentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
     private EnrollmentDatabase enrollmentDatabase = new EnrollmentDatabase(
+            "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
+    private CourseDatabase courseDatabase = new CourseDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
     // method which creates a new UI
@@ -37,17 +40,13 @@ public class AddCertificateMenu implements IUI {
         for (String student : students) {
             studentsComboBox.getItems().add(student);
         }
-        ComboBox<String> enrollmentComboBox = new ComboBox<String>();
+        ComboBox<String> courseComboBox = new ComboBox<String>();
         Label output = new Label();
         Button back = new Button("Back");
         Text textStudent = new Text("Select Student");
-        Text textEnrollment = new Text("Select Enrollment");
-        Text textGrade = new Text("Grade (1-10)");
-        TextField fieldGrade = new TextField();
-        Text textEmployee = new Text("Employee");
-        TextField fieldEmployee = new TextField();
+        Text textEnrollment = new Text("Select Course");
 
-        back.setOnAction((event) -> controller.switchScene("certificatemenu"));
+        back.setOnAction((event) -> controller.switchScene("studentmenu"));
 
         GridPane gridPane = new GridPane();
 
@@ -61,58 +60,48 @@ public class AddCertificateMenu implements IUI {
         gridPane.add(textStudent, 0, 0);
         gridPane.add(studentsComboBox, 1, 0);
         gridPane.add(textEnrollment, 0, 1);
-        gridPane.add(enrollmentComboBox, 1, 1);
-        gridPane.add(textGrade, 0, 2);
-        gridPane.add(fieldGrade, 1, 2);
-        gridPane.add(textEmployee, 0, 3);
-        gridPane.add(fieldEmployee, 1, 3);
+        gridPane.add(courseComboBox, 1, 1);
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
 
         layout.setTop(gridPane);
 
         studentsComboBox.setOnAction((event) -> {
-            ArrayList<String> enrollments = new ArrayList<>();
             String selected = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
-            enrollmentComboBox.getSelectionModel().clearSelection();
-            enrollmentComboBox.getItems().clear();
+            courseComboBox.getSelectionModel().clearSelection();
+            courseComboBox.getItems().clear();
+            output.setText("");
             if (selected != "null") {
-                enrollments = enrollmentDatabase.getAvailableCertificates(selected);
-                for (String enrollment : enrollments) {
-                    enrollmentComboBox.getItems().add(enrollment);
+                ArrayList<String> courses = enrollmentDatabase.getAvailableCertificates(selected);
+                courses = enrollmentDatabase.getAvailableCertificates(selected);
+                for (String course : courses) {
+                    courseComboBox.getItems().add(course);
                 }
+            }
+        });
+        courseComboBox.setOnAction((event) -> {
+            String selectedCourse = String.valueOf(courseComboBox.getSelectionModel().getSelectedItem());
+            String selectedStudent = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
+            String end = "";
+            if (selectedCourse != "null" && selectedStudent != "null") {
+                ArrayList<Integer> results = courseDatabase.getContentIds(selectedCourse);
+                ArrayList<String> contents = courseDatabase.getContent(selectedCourse);
+                ArrayList<Double> progress = new ArrayList<>();
+                for (int result : results) {
+                    progress.add(courseDatabase.getProgress(result, selectedStudent));
+                }
+                for (int i = 0; i < results.size(); i++) {
+                    end = end + contents.get(i) + " | Progress (%): " + progress.get(i) + "\n";
+                }
+                output.setText(end);
             }
         });
         VBox vbox = new VBox();
-        Button addCertificate = new Button("Add Certificate to Student");
-        addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        addCertificate.setMaxWidth(200);
-        addCertificate.setOnAction((event) -> {
-            String selectedStudent = String.valueOf(studentsComboBox.getSelectionModel().getSelectedItem());
-            String selectedEnrollment = String.valueOf(enrollmentComboBox.getSelectionModel().getSelectedItem());
-            if (selectedStudent != "null" && selectedEnrollment != "null" && fieldEmployee.getText().length() > 0
-                    && fieldGrade.getText().length() > 0
-                    && ValidationUtils.validateRating(Double.valueOf(fieldGrade.getText()))) {
-                try {
-                    enrollmentDatabase.addCertificate(selectedStudent, selectedEnrollment, fieldEmployee.getText(),
-                            Double.valueOf(fieldGrade.getText()));
-                    output.setText("Certificate has been added to " + selectedStudent);
-                    enrollmentComboBox.getSelectionModel().clearSelection();
-                    enrollmentComboBox.getItems().clear();
-                    studentsComboBox.getSelectionModel().clearSelection();
-                } catch (NumberFormatException | SQLException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                output.setText("Please verify all fields");
-            }
-
-        });
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
-        vbox.getChildren().add(addCertificate);
-        vbox.getChildren().add(back);
+        output.setPrefHeight(100);
         vbox.getChildren().add(output);
+        vbox.getChildren().add(back);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(0, 10, 10, 10));

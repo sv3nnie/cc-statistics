@@ -47,7 +47,7 @@ public class ManageStudentProgressionUI implements IUI {
         Text textStudent = new Text("Select Student");
         Text textEnrollment = new Text("Select Course");
         Text textModule = new Text("Select Module");
-        Text textProgression = new Text("Progression");
+        Text textProgression = new Text("Progression (in %)");
         TextField fieldProgression = new TextField();
 
         back.setOnAction((event) -> controller.switchScene("studentmenu"));
@@ -96,9 +96,6 @@ public class ManageStudentProgressionUI implements IUI {
                     modulesComboBox.getItems().add(module);
                 }
             }
-        });
-        modulesComboBox.setOnAction((event) -> {
-            output.setText("Current progression: 0.00%");
         });
         VBox vbox = new VBox();
         Button setProgression = new Button("Set Progression");

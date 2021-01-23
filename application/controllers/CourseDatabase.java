@@ -91,6 +91,25 @@ public class CourseDatabase extends Database {
         return results;
     }
 
+    public Double getProgress(int id, String email) {
+        try {
+            connectDatabase();
+
+            String SQL = "SELECT ProgressPercentage FROM Progress WHERE StudentEmailAddress = \'" + email
+                    + "\' AND ContentItemId = \'" + id + "\'";
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                return resultSet.getDouble("ProgressPercentage");
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return 0.0;
+    }
+
     public ArrayList<String> getContent(String course) {
         ArrayList<String> results = new ArrayList<>();
         try {

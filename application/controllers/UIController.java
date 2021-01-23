@@ -52,6 +52,9 @@ public class UIController extends Application {
             case "managestudentprogressionmenu":
                 stage.setScene((new ManageStudentProgressionUI().getUI(this)));
                 break;
+            case "viewstudentprogressionmenu":
+                stage.setScene((new ViewStudentProgressionUI().getUI(this)));
+                break;
             // enrollment related UI's
             case "enrollmentmenu":
                 stage.setScene((new EnrollmentMenuUI().getUI(this)));

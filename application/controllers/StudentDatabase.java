@@ -104,9 +104,8 @@ public class StudentDatabase extends Database {
             resultSet = statement.executeQuery(SQL);
 
             while (resultSet.next()) {
-                results = results + resultSet.getInt("CertificateId") + resultSet.getDouble("Grade")
-                        + resultSet.getString("Employee") + resultSet.getString("CourseName")
-                        + resultSet.getDate("EnrollmentDate") + "\n";
+                results = results + "Grade: " + resultSet.getDouble("Grade") + " | Course: "
+                        + resultSet.getString("CourseName") + " | Date: " + resultSet.getDate("EnrollmentDate") + "\n";
             }
 
         } catch (Exception e) {

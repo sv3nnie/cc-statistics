@@ -40,7 +40,6 @@ public class ViewStudentUI implements IUI {
         Button delete = new Button("Delete Student");
         Button back = new Button("Back");
         Button addCertificate = new Button("Add Certificate");
-        Button addEnrollment = new Button("Add Enrollment");
         Text textName = new Text("Name");
         Text textDoB = new Text("Date of Birth");
         Text textGender = new Text("Gender");
@@ -79,7 +78,6 @@ public class ViewStudentUI implements IUI {
         });
 
         back.setOnAction((event) -> controller.switchScene("studentmenu"));
-        addEnrollment.setOnAction((event) -> controller.switchScene("enrollmentmenu"));
         addCertificate.setOnAction((event) -> controller.switchScene("addcertificatemenu"));
 
         delete.setOnAction((event) -> {
@@ -131,18 +129,15 @@ public class ViewStudentUI implements IUI {
         Text textCertificates = new Text("Certificates");
         addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         addCertificate.setMaxWidth(200);
-        addEnrollment.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
-        addEnrollment.setMaxWidth(200);
         vbox.getChildren().add(textCertificates);
         vbox.getChildren().add(allCertificates);
         vbox.getChildren().add(addCertificate);
-        vbox.getChildren().add(addEnrollment);
         vbox.getChildren().add(delete);
         vbox.getChildren().add(back);
         vbox.getChildren().add(output);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
-        vbox.setPadding(new Insets(0, 10, 10, 10));
+        vbox.setPadding(new Insets(20, 10, 10, 10));
         // Styling nodes
         delete.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         delete.setMaxWidth(200);

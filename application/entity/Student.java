@@ -23,6 +23,8 @@ public class Student {
         if (!ValidationUtils.validatePostalCode(postalCode)) {
             return "Invalid postalcode (0000 AA)";
         }
+        //format postalCode
+        postalCode = ValidationUtils.formatPostalCode(postalCode);
         // set input date to valid local date
         LocalDate date = LocalDate.of(yearDate, monthDate, dayDate);
         // Build query for database

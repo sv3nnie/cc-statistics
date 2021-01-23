@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class ValidationUtils {
 
     // Regex to validate valid e-mails
-    private static final String regexEmail = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+↵\n"
+    private static final String regexEmail = "^[a-zA-Z0-9_.!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+↵\n"
             + ")*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
     // Regex to validate valid URLs
     private static final String regexURL = "https?://" + "[a-zA-Z0-9@:%._\\+~#?&//=]" + "{1,256}\\.[a-z]"

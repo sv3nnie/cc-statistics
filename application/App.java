@@ -1,7 +1,7 @@
 package application;
 
-import javafx.application.Application;
 import application.controllers.UIController;
+import javafx.application.Application;
 
 public class App {
 

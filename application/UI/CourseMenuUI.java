@@ -35,10 +35,14 @@ public class CourseMenuUI implements IUI {
         Button relatedCourses = new Button("View related courses");
         relatedCourses.setMinWidth(200);
         relatedCourses.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
+        Button averageProgression = new Button("Average progression per course");
+        averageProgression.setMinWidth(200);
+        averageProgression.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
 
         newCourse.setOnAction((event) -> controller.switchScene("newcoursemenu"));
         editCourse.setOnAction((event) -> controller.switchScene("addcontenttocourse"));
         relatedCourses.setOnAction((event) -> controller.switchScene("relatedcoursemenu"));
+        averageProgression.setOnAction((event) -> controller.switchScene("averageprogressionmenu"));
 
         GridPane gridPane = new GridPane();
 
@@ -51,6 +55,7 @@ public class CourseMenuUI implements IUI {
         gridPane.add(newCourse, 0, 1);
         gridPane.add(editCourse, 1, 1);
         gridPane.add(relatedCourses, 0, 2);
+        gridPane.add(averageProgression, 1, 2);
         VBox bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
         Button back = new Button("Back to home");

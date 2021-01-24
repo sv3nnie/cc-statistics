@@ -39,6 +39,9 @@ public class UIController extends Application {
             case "relatedcoursemenu":
                 stage.setScene((new RelatedCoursesMenuUI().getUI(this)));
                 break;
+            case "averageprogressionmenu":
+                stage.setScene((new AverageProgressionUI().getUI(this)));
+                break;
             // student related UI's
             case "studentmenu":
                 stage.setScene((new StudentMenuUI().getUI(this)));

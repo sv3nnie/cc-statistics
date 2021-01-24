@@ -14,16 +14,21 @@ import javafx.scene.text.Text;
 
 import java.sql.SQLException;
 
+import application.controllers.CertificateDatabase;
 import application.controllers.UIController;
 import application.entity.*;
 import application.logic.Gender;
 
 public class AddStudentUI implements IUI {
 
+    // connection to the required databases for this class
+    private CertificateDatabase certificateDatabase = new CertificateDatabase(
+            "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
+
     // method which creates a new UI
     public Scene getUI(UIController controller) {
         BorderPane layout = new BorderPane();
-        layout.setMinSize(500, 150);
+        layout.setMinSize(500, 170);
         layout.setStyle("-fx-background-color: #EEF5FC;");
 
         Text textEmail = new Text("Email");
@@ -62,8 +67,14 @@ public class AddStudentUI implements IUI {
         fieldCountry.setPromptText("Country");
         fieldPostalCode.setPromptText("Postalcode");
         Label output = new Label();
+        Label countCompleted = new Label();
         Button submit = new Button("Submit");
         Button back = new Button("Back");
+
+        genders.setOnAction((event) -> {
+            countCompleted.setText(String.valueOf(certificateDatabase.getPercentageCompleted(genders.getValue()))
+                    + "% of students with this gender\nreceived a certificate after an enrollment");
+        });
 
         submit.setOnAction((event) -> {
             if (fieldEmail.getText().isEmpty() || fieldName.getText().isEmpty() || fieldDay.getText().isEmpty()
@@ -106,21 +117,22 @@ public class AddStudentUI implements IUI {
         gridPane.add(fieldYear, 1, 2);
         gridPane.add(textGender, 0, 3);
         gridPane.add(genders, 1, 3);
-        gridPane.add(textCountry, 0, 4);
-        gridPane.add(fieldCountry, 1, 4);
-        gridPane.add(textCity, 0, 5);
-        gridPane.add(fieldCity, 1, 5);
-        gridPane.add(textAddress, 0, 6);
-        gridPane.add(fieldAddress, 1, 6);
-        gridPane.add(textPostalCode, 0, 7);
-        gridPane.add(fieldPostalCode, 1, 7);
+        gridPane.add(countCompleted, 1, 4);
+        gridPane.add(textCountry, 0, 5);
+        gridPane.add(fieldCountry, 1, 5);
+        gridPane.add(textCity, 0, 6);
+        gridPane.add(fieldCity, 1, 6);
+        gridPane.add(textAddress, 0, 7);
+        gridPane.add(fieldAddress, 1, 7);
+        gridPane.add(textPostalCode, 0, 8);
+        gridPane.add(fieldPostalCode, 1, 8);
         VBox texts = new VBox();
         texts.getChildren().add(submit);
         texts.getChildren().add(back);
         texts.getChildren().add(output);
         texts.setAlignment(Pos.BASELINE_CENTER);
         texts.setSpacing(10);
-        texts.setPadding(new Insets(0, 10, 10, 10));
+        texts.setPadding(new Insets(10, 10, 10, 10));
         // Styling nodes
         submit.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         submit.setMaxWidth(200);

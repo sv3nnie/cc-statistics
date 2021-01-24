@@ -3,6 +3,7 @@ package application.UI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import application.controllers.CertificateDatabase;
 import application.controllers.EnrollmentDatabase;
 import application.controllers.StudentDatabase;
 import application.controllers.UIController;
@@ -26,6 +27,8 @@ public class AddCertificateMenu implements IUI {
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
     private EnrollmentDatabase enrollmentDatabase = new EnrollmentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
+    private CertificateDatabase certificateDatabase = new CertificateDatabase(
+            "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
     // method which creates a new UI
     public Scene getUI(UIController controller) {
@@ -39,6 +42,7 @@ public class AddCertificateMenu implements IUI {
         }
         ComboBox<String> enrollmentComboBox = new ComboBox<String>();
         Label output = new Label();
+        Label certificateCount = new Label();
         Button back = new Button("Back");
         Text textStudent = new Text("Select Student");
         Text textEnrollment = new Text("Select Enrollment");
@@ -83,6 +87,11 @@ public class AddCertificateMenu implements IUI {
                 }
             }
         });
+        enrollmentComboBox.setOnAction((event) -> {
+            String selected = String.valueOf(enrollmentComboBox.getSelectionModel().getSelectedItem());
+            certificateCount.setText("Current certificates given for selected course: "
+                    + String.valueOf(certificateDatabase.getCount(selected)));
+        });
         VBox vbox = new VBox();
         Button addCertificate = new Button("Add Certificate to Student");
         addCertificate.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
@@ -110,6 +119,7 @@ public class AddCertificateMenu implements IUI {
         });
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
+        vbox.getChildren().add(certificateCount);
         vbox.getChildren().add(addCertificate);
         vbox.getChildren().add(back);
         vbox.getChildren().add(output);

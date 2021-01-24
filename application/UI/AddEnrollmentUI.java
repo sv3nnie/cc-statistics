@@ -96,9 +96,9 @@ public class AddEnrollmentUI implements IUI {
         });
         back.setStyle("-fx-background-color: #191923; -fx-text-fill: white;");
         back.setMaxWidth(200);
+        vbox.getChildren().add(output);
         vbox.getChildren().add(addEnrollment);
         vbox.getChildren().add(back);
-        vbox.getChildren().add(output);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(0, 10, 10, 10));

@@ -58,6 +58,7 @@ public class CourseDatabase extends Database {
         statement.executeUpdate(query);
     }
 
+    // add progress from student to the database
     public void addProgress(String emailaddress, int id) throws SQLException {
         int progress = 0;
         String query = "INSERT INTO Progress(StudentEmailAddress, ContentItemId, ProgressPercentage) VALUES (\'"
@@ -65,12 +66,14 @@ public class CourseDatabase extends Database {
         statement.executeUpdate(query);
     }
 
+    // edit student progress to database
     public void editProgress(String emailaddress, int id, double progress) throws SQLException {
         String query = "UPDATE Progress SET ProgressPercentage = \'" + progress + "\' WHERE StudentEmailAddress = \'"
                 + emailaddress + "\' AND ContentItemId = \'" + id + "\'";
         statement.executeUpdate(query);
     }
 
+    // get interesting courses related to given coursename
     public ArrayList<String> getInterestingCourses(String selected) {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -91,6 +94,7 @@ public class CourseDatabase extends Database {
         return results;
     }
 
+    // get progress from specific email and contentitemid
     public Double getProgress(int id, String email) {
         try {
             connectDatabase();
@@ -110,6 +114,7 @@ public class CourseDatabase extends Database {
         return 0.0;
     }
 
+    // get all content from given course
     public ArrayList<String> getContent(String course) {
         ArrayList<String> results = new ArrayList<>();
         try {
@@ -141,6 +146,7 @@ public class CourseDatabase extends Database {
         return results;
     }
 
+    // get all contentids from given course
     public ArrayList<Integer> getContentIds(String course) {
         ArrayList<Integer> ids = new ArrayList<>();
         try {
@@ -171,6 +177,28 @@ public class CourseDatabase extends Database {
         return ids;
     }
 
+    // get average progress per given contentitemid
+    public ArrayList<Double> getAverageProgress(ArrayList<Integer> ids) {
+        ArrayList<Double> progress = new ArrayList<>();
+        try {
+            connectDatabase();
+            for (int id : ids) {
+                String SQL = "SELECT AVG(ProgressPercentage) AS Average FROM Progress WHERE ContentItemId = \'" + id
+                        + "\'";
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery(SQL);
+                while (resultSet.next()) {
+                    progress.add(resultSet.getDouble("Average"));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR:\n\n" + e);
+        }
+        return progress;
+    }
+
+    // get contentid from module/webcast
     public Integer getContentId(String title, String type) {
         try {
             connectDatabase();

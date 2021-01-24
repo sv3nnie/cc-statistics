@@ -43,6 +43,7 @@ public class EnrollmentDatabase extends Database {
         statement.executeUpdate(query);
     }
 
+    //get the date from a student enrollment
     public String getDate(String email, String courseName) {
         try {
             connectDatabase();
@@ -63,6 +64,7 @@ public class EnrollmentDatabase extends Database {
         return "";
     }
 
+    //add certificate to a student in database
     public void addCertificate(String email, String courseName, String employee, double grade) throws SQLException {
         LocalDate localDate = LocalDate.parse(getDate(email, courseName));
         int year = localDate.getYear();
@@ -74,6 +76,7 @@ public class EnrollmentDatabase extends Database {
         statement.executeUpdate(query);
     }
 
+    //get all available certificates from a student
     public ArrayList<String> getAvailableCertificates(String email) {
         ArrayList<String> results = new ArrayList<>();
         try {

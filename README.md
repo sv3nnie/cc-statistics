@@ -3,4 +3,4 @@
 - Lenty Sprangers
 - Tieu Verhoeven
 - Sven Colijn
-- Pim van Gool 
+- Pim van Gool

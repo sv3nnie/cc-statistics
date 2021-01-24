@@ -11,7 +11,7 @@ public class Student {
     private static StudentDatabase studentDatabase = new StudentDatabase(
             "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
-    //add a new student to the database including all the needed validations
+    // add a new student to the database including all the needed validations
     public static String addStudent(String email, String name, int dayDate, int monthDate, int yearDate, String gender,
             String country, String city, String address, String postalCode) throws SQLException {
         if (!ValidationUtils.validateEmail(email)) {
@@ -21,10 +21,8 @@ public class Student {
             return "Invalid date";
         }
         if (!ValidationUtils.validatePostalCode(postalCode)) {
-            return "Invalid postalcode (0000 AA)";
+            return "Invalid postalcode (1000 AA)";
         }
-        //format postalCode
-        postalCode = ValidationUtils.formatPostalCode(postalCode);
         // set input date to valid local date
         LocalDate date = LocalDate.of(yearDate, monthDate, dayDate);
         // Build query for database

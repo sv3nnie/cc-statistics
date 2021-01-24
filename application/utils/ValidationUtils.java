@@ -41,6 +41,7 @@ public class ValidationUtils {
         if (matcher.matches()) {
             return new StringBuilder(postalCode).insert(4, " ").toString();
         }
+        
         throw new IllegalArgumentException("PostalCode was invalid: " + postalCode);
     }
 

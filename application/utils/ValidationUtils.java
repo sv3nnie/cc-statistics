@@ -1,6 +1,5 @@
 package application.utils;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +12,7 @@ public class ValidationUtils {
     private static final String regexURL = "https?://" + "[a-zA-Z0-9@:%._\\+~#?&//=]" + "{1,256}\\.[a-z]"
             + "{1,256}\\b([-a-zA-Z0-9@:%" + "._\\+~#?&//=]*)" + "[a-zA-Z0-9@:%._\\+~#?&//=]";
     // Regex to validate postal codes
-    private static final String regexPostalCode = "[1-9][0-9]{3}[A-Z]{2}";
+    private static final String regexPostalCode = "[1-9][0-9]{3}" + " " + "[A-Z]{2}";
 
     // validate if the given e-mail is a valid e-mail
     public static boolean validateEmail(String email) {
@@ -44,7 +43,6 @@ public class ValidationUtils {
         }
         throw new IllegalArgumentException("PostalCode was invalid: " + postalCode);
     }
-
 
     // validate if the given URL is a valid URL
     public static boolean validateURL(String url) {
@@ -83,7 +81,7 @@ public class ValidationUtils {
                 }
             }
         }
-        //we now check if a month with 30 days might have over 30 days which is false
+        // we now check if a month with 30 days might have over 30 days which is false
         switch (month) {
             case 4:
             case 6:
@@ -93,11 +91,10 @@ public class ValidationUtils {
                     return false;
                 }
                 break;
-            //if day > 31 is always false because of previous check in method
+            // if day > 31 is always false because of previous check in method
         }
         return true;
     }
-
 
     // validate if given year is a leap year to validate the date
     public static boolean leapYear(int year) {

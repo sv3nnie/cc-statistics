@@ -61,7 +61,7 @@ public class ValidationUtils {
 
     // validate if the percentage given by user is valid. (1-100)
     public static boolean validatePercentage(double percentage) {
-         return percentage >= 1 && percentage <= 100;
+        return percentage >= 1 && percentage <= 100;
     }
 
     // Verify if the date given by the user is a valid date
@@ -83,22 +83,21 @@ public class ValidationUtils {
                 }
             }
         }
-        // Month 1, 3, 5, 7, 8, 10, 12 = max 31 days
-        // Month 4, 6, 9, 11 = max 30 days
-        int[] days31 = {1, 3, 5, 7, 8, 10, 12};
-        int[] days30 = {4, 6, 9, 11};
-        if (Arrays.stream(days31).anyMatch(i -> i == month)) {
-            if (day > 31) {
-                return false;
-            }
-        }
-        if (Arrays.stream(days30).anyMatch(i -> i == month)) {
-            if (day > 30) {
-                return false;
-            }
+        //we now check if a month with 30 days might have over 30 days which is false
+        switch (month) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                if (day > 30) {
+                    return false;
+                }
+                break;
+            //if day > 31 is always false because of previous check in method
         }
         return true;
     }
+
 
     // validate if given year is a leap year to validate the date
     public static boolean leapYear(int year) {

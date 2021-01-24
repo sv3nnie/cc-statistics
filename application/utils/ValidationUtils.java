@@ -55,34 +55,22 @@ public class ValidationUtils {
 
     // validate if the certificate rating is valid (1-10)
     public static boolean validateRating(double rating) {
-        if (rating < 1 || rating > 10) {
-            return false;
-        }
-        return true;
+        return rating >= 1 && rating <= 10;
 
     }
 
     // validate if the percentage given by user is valid. (1-100)
     public static boolean validatePercentage(double percentage) {
-        if (percentage < 0 || percentage > 100) {
-            return false;
-        }
-        return true;
-
+         return percentage >= 1 && percentage <= 100;
     }
 
     // Verify if the date given by the user is a valid date
     public static boolean validateDate(int day, int month, int year) {
 
-        if (day > 31 || day < 1) {
+        if (day > 31 || day < 1 || month < 1 || month > 12 || year < 0) {
             return false;
         }
-        if (month < 1 || month > 12) {
-            return false;
-        }
-        if (year < 0) {
-            return false;
-        }
+
         // check date for february
         if (month == 2) {
             if (leapYear(year)) {

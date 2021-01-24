@@ -1,10 +1,14 @@
 package application.UI;
 
+import java.util.ArrayList;
+
 import application.controllers.UIController;
+import application.controllers.WebcastDatabase;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -12,6 +16,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class CourseMenuUI implements IUI {
+
+    // connection to the required databases for this class
+    private WebcastDatabase webcastDatabase = new WebcastDatabase(
+            "jdbc:sqlserver://localhost;databaseName=Codecademy;integratedSecurity=true;");
 
     // method which creates a new UI
     public Scene getUI(UIController controller) {
@@ -64,7 +72,17 @@ public class CourseMenuUI implements IUI {
         back.setOnAction((event) -> controller.switchScene("main"));
         bottom.setPadding(new Insets(0, 10, 10, 10));
         bottom.getChildren().add(back);
-
+        Label top3Webcasts = new Label();
+        ArrayList<String> casts = webcastDatabase.getWebcastViewCount();
+        String webcasts = "";
+        Label webcastsText = new Label("Top 3 webcasts:");
+        webcastsText.setPadding(new Insets(10, 0, 0, 0));
+        for (String webcast : casts) {
+            webcasts = webcasts + webcast + "\n";
+        }
+        top3Webcasts.setText(webcasts);
+        bottom.getChildren().add(webcastsText);
+        bottom.getChildren().add(top3Webcasts);
         layout.setTop(vBox);
         layout.setCenter(gridPane);
         layout.setBottom(bottom);

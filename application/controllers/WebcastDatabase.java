@@ -1,7 +1,6 @@
 package application.controllers;
 
 import java.util.ArrayList;
-import java.sql.SQLException;
 
 public class WebcastDatabase extends Database {
     public WebcastDatabase(String connectionUrl) {
@@ -13,13 +12,13 @@ public class WebcastDatabase extends Database {
         try {
             connectDatabase();
 
-            String SQL = "SELECT Title, ViewCount FROM Webcast";
+            String SQL = "SELECT TOP 3 Title, ViewCount FROM Webcast ORDER BY ViewCount DESC";
             statement = connection.createStatement();
 
             resultSet = statement.executeQuery(SQL);
 
             while (resultSet.next()) {
-                results.add(resultSet.getString("Title"));
+                results.add(resultSet.getString("Title") + " (" + resultSet.getInt("ViewCount") + " views)");
             }
 
         } catch (Exception e) {

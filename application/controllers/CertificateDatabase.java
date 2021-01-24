@@ -75,7 +75,11 @@ public class CertificateDatabase extends Database {
             }
 
             DecimalFormat format = new DecimalFormat("#0.0");
-            return format.format((countcompleted / countenrolled) * 100);
+            String formatted = format.format((countcompleted / countenrolled) * 100);
+            if (formatted.equals("NaN")) {
+                return "0";
+            }
+            return formatted;
         } catch (Exception e) {
             System.out.println("ERROR:\n\n" + e);
         }
